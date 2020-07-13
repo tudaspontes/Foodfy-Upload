@@ -1,0 +1,85 @@
+
+<div class="item">
+    <div>Recipe's image</div>
+    <div>
+        <input 
+            type="url" 
+            name="image" 
+            placeholder="put here the url of the image"
+            value="{{ recipe.image }}"    
+        >
+    </div>
+</div>
+
+<div class="item">
+    <div>Recipe's name</div>
+    <div>
+        <input 
+            type="text" 
+            name="title" 
+            placeholder="ex: 300g of cooked rice"
+            value="{{ recipe.title }}"    
+        >
+    </div>
+</div>
+
+<div class="item">
+    <div>Chef</div>
+    <div>
+        <select class="chef-options" name="chef">
+            {% for chef in chefOptions %}
+            <option value="{{chef.id}}" {% if recipe.chef_id == chef.id %} selected {% endif %}>
+                {{chef.name}}
+            </option>
+            {% endfor %}
+           
+        </select>
+    </div>
+</div>
+
+
+
+<div class="item">
+    <div id="ingredients">
+        <div>Ingredients</div>
+        <div class="ingredient">
+            <input
+                type="text"
+                name="ingredients[]"
+                value="{{ recipe.ingredients }}"
+                placeholder="Ingredient"
+            >
+        </div>
+    </div>
+        <button type="button" class="add-ingredient">Add Ingredient</button>
+</div>
+
+
+<div class="item">
+    <div id="directions">
+        <div>Steps</div>
+        <div class="direction">
+            <input
+                type="text"
+                name="preparation[]"
+                value="{{ recipe.preparation }}"
+                placeholder="Preparation"
+            >
+        </div>
+    </div>
+        <button type="button" class="add-step">Add Step</button>
+</div>
+
+<div class="item">
+    <div>Additional information</div>
+    <div>
+        <input 
+            type="text" 
+            name="information" 
+            placeholder="put here some useful info about the recipe"
+            value="{{ recipe.information }}"    
+        >
+    </div>
+</div>
+
+<script src="/script.js"></script>

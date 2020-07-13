@@ -1,0 +1,44 @@
+{% extends 'layout-admin.njk' %}
+
+{% block content %}
+
+<form class="card container" method="POST" action="/admin?_method=PUT">
+    <section>
+        <div class="wrapper_edit">
+            <div class="create_recipe">
+                <h3>Edit recipe</h3>
+            </div>
+
+            <div class="create_recipe__buttons">
+
+            <button type="submit" id="save">Save Recipe</button>
+        
+</form>
+
+<form id="form-delete" action="/admin?_method=DELETE" method="POST">
+    <input type="hidden" name="id" value={{recipe.id}}>
+    <button type="submit" id="delete">Delete</button>
+</form>
+        </div>      
+        </div>
+        
+        {% include 'admin/fields.njk'%}
+
+        <input type="hidden" name="id" value={{recipe.id}}>
+
+    </section>
+
+    <script>
+            
+    const formDelete = document.querySelector("#form-delete")
+        formDelete.addEventListener("submit", function (event){
+            const confirmation = confirm("Are you sure?")
+            if(!confirmation) {
+                event.preventDefault()
+            }
+        })
+    </script>
+
+
+{% endblock content %}
+
