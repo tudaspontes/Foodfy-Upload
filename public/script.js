@@ -1,5 +1,22 @@
 const cards = document.querySelectorAll('.card');
 const expandButtons = document.querySelectorAll('.expand-button');
+const PhotosUpload = {
+  uploadLimit: 5,
+  handleFileInput(event) {
+    const { files: fileList } = event.target
+    const { uploadLimit } = PhotosUpload
+
+    if(fileList.length > uploadLimit ) {
+      alert(`envie no maximo ${uploadLimit} fotos`)
+      event.preventDefault()
+      return
+    }
+
+    Array.from(fileList).forEach(file.name + ' alo')
+
+  }
+}
+
 
 for (let card of cards) {
   card.addEventListener('click', function() {
@@ -64,3 +81,4 @@ document
 document
   .querySelector(".add-step")
   .addEventListener("click", addStep);
+
