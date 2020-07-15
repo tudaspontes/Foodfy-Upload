@@ -12,8 +12,24 @@ const PhotosUpload = {
       return
     }
 
-    Array.from(fileList).forEach(file.name + ' alo')
+    Array.from(fileList).forEach(file => {
+      const reader = new FileReader()
 
+      reader.onload = () => {
+        const image = new Image()
+        image.src = String(reader.result)
+
+        const div = document.createElement('div')
+        div.classList.add('photo')
+        
+        div.onclick = () => alert('cliquei')
+      
+        div.appendChild(image)
+
+        document.querySelector('#photos-preview').appendChild(div)
+    }
+    reader.readAsDataURL(file)
+  })
   }
 }
 
@@ -81,4 +97,3 @@ document
 document
   .querySelector(".add-step")
   .addEventListener("click", addStep);
-
