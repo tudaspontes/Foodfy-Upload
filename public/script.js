@@ -1,14 +1,20 @@
 const cards = document.querySelectorAll('.card');
 const expandButtons = document.querySelectorAll('.expand-button');
 const PhotosUpload = {
+  input: "",
   preview: document.querySelector('#photos-preview'),
   uploadLimit: 5,
+  files: [],
   handleFileInput(event) {
     const { files: fileList } = event.target
+    PhotosUpload.input = event.target
     
     if(PhotosUpload.hasLimit(event)) return
 
     Array.from(fileList).forEach(file => {
+
+      PhotosUpload.files.push(file)
+
       const reader = new FileReader()
 
       reader.onload = () => {
@@ -21,19 +27,43 @@ const PhotosUpload = {
     }
     reader.readAsDataURL(file)
   })
+
+  PhotosUpload.input.files = PhotosUpload.getAllFiles()
+
   },
   hasLimit(event) {
-    const { uploadLimit } = PhotosUpload
-    const { files:fileList } = event.target
-
+    const { uploadLimit, input, preview } = PhotosUpload
+    const { files: fileList} = input
+    
     if(fileList.length > uploadLimit ) {
       alert(`envie no maximo ${uploadLimit} fotos`)
       event.preventDefault()
       return true
     }
 
+    const photosDiv = []
+    preview.childNodes.forEach(item => {
+      if (item.classList && item.classList.value == "photo")
+        photosDiv.push(item)
+    })
+
+    const totalPhotos = fileList.length + photosDiv.length
+    if (totalPhotos > uploadLimit) {
+      alert("Voce atingiu o limite maximo de fotos")
+      event.preventDefault()
+      return true
+    }
+
+
     return false
 
+  },
+  getAllFiles() {
+    const dataTransfer = new DataTransfer()
+
+    PhotosUpload.files.forEach(file => dataTransfer.items.add(file))
+
+    return dataTransfer.getAllFiles
   },
   getContainer(image) {
       const div = document.createElement('div')
@@ -57,6 +87,9 @@ const PhotosUpload = {
     const photoDiv = event.target.parentNode
     const photosArray = Array.from(PhotosUpload.preview.children)
     const index = photosArray.indexOf(photoDiv)
+
+    PhotosUpload.files.splice(index, 1)
+    PhotosUpload.input.files = PhotosUpload.getAllFiles()
 
     photoDiv.remove()
   }
