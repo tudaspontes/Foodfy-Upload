@@ -39,31 +39,23 @@ module.exports = {
     return db.query(query, values)
 
     },
-    find(id, callback) {
-        db.query(`
+    find(id) {
+        return db.query(`
         SELECT recipes.*, chefs.name AS chef_name
         FROM recipes
         LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
-        WHERE recipes.id = $1`, [id], function (err, results){
-            if(err) throw `Database error! ${err}`
-            callback(results.rows[0])
-
-        })
+        WHERE recipes.id = $1`, [id])
     },
-    findby(filter, callback) {
-        db.query(`
+    findby(filter) {
+        return db.query(`
         SELECT recipes.*, chefs.name AS chef_name
         FROM recipes
         LEFT JOIN chefs ON (chefs.id = recipes.chef_id)
         WHERE recipes.title ILIKE '%${filter}%'
         OR chefs.name ILIKE '%${filter}%'
-        `, function(err, results){
-            if(err) throw `Database error! ${err}`
-        
-            callback(results.rows)
-        })
+        `)
     },
-    update(data, callback) {
+    update(data) {
         const query = `
         UPDATE recipes SET
             chef_id=($1),
@@ -85,26 +77,15 @@ module.exports = {
             data.id            
         ]
 
-        db.query(query, values, function(err, results){
-            if(err) throw `Database error! ${err}`
-            callback()
-        })
+        return db.query(query, values)
     },
-    delete(id, callback) {
-        db.query(`
+    delete(id) {
+        return db.query(`
         DELETE
         FROM recipes
-        WHERE id = $1`, [id], function(err, results){
-            if(err) throw `Database error! ${err}`
-            
-            return callback()
-        })
+        WHERE id = $1`, [id])
     },
-    chefsSelectOptions(callback) {
-        db.query(`SELECT name, id FROM chefs`, function (err, results) {
-            if (err) throw 'Database error'
-
-            callback(results.rows)
-        })
+    chefsSelectOptions() {
+        return db.query(`SELECT name, id FROM chefs`)
     }
 }
