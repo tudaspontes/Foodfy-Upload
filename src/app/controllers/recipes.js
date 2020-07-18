@@ -2,16 +2,16 @@
 const Recipes = require("../models/Recipes")
 
 module.exports = {
-    index(req, res) {
+    async index(req, res) {
 
-        Recipes.all(function(recipes){
-            return res.render('admin/index', { recipes });
+        let results = await Recipes.all()
+        const recipes = results.rows
 
-        })     
+        return res.render('admin/index', { recipes });     
         
     },
     
-    post(req, res) {
+    async post(req, res) {
         const keys = Object.keys(req.body)
     
         for(key of keys) {
@@ -20,10 +20,11 @@ module.exports = {
             }
         }
         
-        Recipes.create(req.body, function(recipe){
-            return res.redirect(`/admin/recipes/${recipe.id}`)
+        let results = await Recipes.create(req.body)
+        const recipeID = results.rows[0].id
 
-        })
+        return res.redirect(`/admin/recipes/${recipeID}`)
+
     },
     
     create(req, res) {
