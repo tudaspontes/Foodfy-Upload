@@ -3,8 +3,8 @@ const Chefs = require("../models/Chefs")
 
 module.exports = {
 
-    index(req, res) {
-
+    async index(req, res) {
+        
         const { filter } = req.query
 
         if (filter) {
@@ -13,20 +13,19 @@ module.exports = {
             });
 
         } else {
-            
-        Recipes.all(function(recipes){
+
+            let results = await Recipes.all()
+            const recipes = results.rows
             return res.render('./user/index', { recipes });
-            });
+    
         }
 
     },
+    async about(req, res) {
 
-    about(req, res) {
-
-        return res.render('./user/about');
+        await res.render('./user/about');
     },
-
-    recipes(req, res) {
+    async recipes(req, res) {
 
         const { filter } = req.query
 
@@ -36,24 +35,21 @@ module.exports = {
             })
 
         } else {
-        Recipes.all(function(recipes){
+
+            let results = await Recipes.all()
+            const recipes = results.rows
             return res.render('./user/recipes', {recipes});
-        });
-
-        }
-        
+        }        
     },
-
-    recipe(req, res) {
+    async recipe(req, res) {
         const id = req.params.id;
 
-        res.render('./user/recipe');
+        await res.render('./user/recipe');
     },
-    chefs(req,res) {
+    async chefs(req,res) {
         
-        Chefs.all(function(chefs){
-            return res.render('.user/chefs', { chefs });
-
-        })        
+        let results = await Chefs.all()
+        const chefs = results.rows
+        return res.render('.user/chefs', { chefs });
     }
 }
