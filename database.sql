@@ -12,7 +12,7 @@ CREATE TABLE "recipe_files" (
 
 CREATE TABLE "recipes" (
   "id" SERIAL PRIMARY KEY,
-  "chef_id" int,
+  "chef_id" int UNIQUE,
   "ingredients" text[],
   "preparation" text[],
   "information" text,
@@ -21,6 +21,7 @@ CREATE TABLE "recipes" (
 
 CREATE TABLE "chefs" (
   "id" SERIAL PRIMARY KEY,
+  "file_id" int UNIQUE,
   "name" text,
   "created_at" timestamp DEFAULT (now())
 );
@@ -28,3 +29,5 @@ CREATE TABLE "chefs" (
 ALTER TABLE "recipe_files" ADD FOREIGN KEY ("recipe_id") REFERENCES "recipes" ("id");
 
 ALTER TABLE "recipe_files" ADD FOREIGN KEY ("files_id") REFERENCES "files" ("id");
+
+ALTER TABLE "files" ADD FOREIGN KEY ("id") REFERENCES "chefs" ("file_id");
