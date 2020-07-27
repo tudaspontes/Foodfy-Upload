@@ -22,7 +22,7 @@ CREATE TABLE "recipes" (
 CREATE TABLE "chefs" (
   "id" SERIAL PRIMARY KEY,
   "file_id" int UNIQUE,
-  "name" text,
+  "name" text NOTNULL,
   "created_at" timestamp DEFAULT (now())
 );
 
