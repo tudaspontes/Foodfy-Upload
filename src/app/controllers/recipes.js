@@ -1,5 +1,6 @@
-
 const Recipes = require("../models/Recipes")
+const Files = require("../models/Files")
+
 
 module.exports = {
     async index(req, res) {
@@ -9,6 +10,14 @@ module.exports = {
 
         return res.render('admin/index', { recipes }); 
         
+    },
+
+    async create(req, res) {
+
+        let results = await Recipes.chefsSelectOptions()
+        const options = results.rows
+        
+        return res.render('admin/create', { chefOptions: options });
     },
     
     async post(req, res) {
@@ -31,14 +40,6 @@ module.exports = {
 
         return res.redirect(`/admin/recipes/${recipeID}`)
 
-    },
-    
-    async create(req, res) {
-
-        let results = await Recipes.chefsSelectOptions()
-        const options = results.rows
-        
-        return res.render('admin/create', { chefOptions: options });
     },
     
     async show(req, res) {
