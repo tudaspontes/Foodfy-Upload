@@ -2,9 +2,6 @@ const db = require("../../config/db")
 const { date } = require("../../lib/utils")
 const fs = require('fs')
 
-const Recipes = require('../models/Recipes')
-const Chefs = require('../models/Chefs')
-
 module.exports = {
     all() {
         return db.query(`

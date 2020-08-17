@@ -1,5 +1,4 @@
 const express = require('express')
-
 const user = require('./app/controllers/user')
 const recipes = require('./app/controllers/recipes')
 const chefs = require('./app/controllers/chefs')
