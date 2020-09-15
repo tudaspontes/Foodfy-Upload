@@ -12,12 +12,12 @@ module.exports = {
 
 
     },
-    create({filename, path, file_id}) {
+    create({filename, path, files_id}) {
         const query = `
             INSERT INTO files (
                 name,
                 path,
-                file_id
+                files_id
             ) VALUES ($1, $2, $3)
             RETURNING id    
     `
@@ -25,7 +25,7 @@ module.exports = {
         const values = [
             filename,
             path,
-            file_id
+            files_id
         ]
 
     return db.query(query, values)

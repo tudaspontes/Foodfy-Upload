@@ -33,7 +33,7 @@ module.exports = {
         if (req.files.lenght == 0)
             return res.send('Please, send at least one image!')
         
-        let results = await Recipes.create(req.body)
+        let results = await Files.create(req.body)
         const recipeID = results.rows[0].id
 
         const filesPromise = req.files.map(files => Files.create({...files, file_id: recipeID}))
