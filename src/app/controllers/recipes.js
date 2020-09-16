@@ -36,7 +36,7 @@ module.exports = {
         let results = await Recipes.create(req.body)
         const recipeID = results.rows[0].id
 
-        const filesPromise = req.files.map(files => Files.create({...files, recipeID: recipeID}))
+        const filesPromise = req.files.map(files => Recipe_files.create({...files, recipeID: recipeID}))
         await Promise.all(filesPromise)
 
         return res.redirect(`/admin/recipes/${recipeID}`)
