@@ -34,15 +34,16 @@ module.exports = {
             return res.send('Please, send at least one image!')
         
         const filesPromise = req.files.map(file => Files.create({...file}))
-        const filesResults = await Promise.all(filesPromise)
-
-            const recipeFiles = filesResults.map((file) => {
-                const fileId = file.rows[0].id
-                Recipe_files.create(recipeId, fileId)
-            })
-
-        await Promise.all(recipePromise)
         
+        const results = await Recipe_files.create(req.body)
+        const recipeId = results.rows[0].id
+
+        const filesResults = await Promise.all(filesPromise)
+        const recipeFiles = filesResults.map((file) => {
+            const fileId = file.rows[0].id
+            Recipe_files.create(recipeId, fileId)
+        })
+        await Promise.all(recipeFiles)
             return res.redirect(`/admin/recipes/${recipeId}`)
 
     },
