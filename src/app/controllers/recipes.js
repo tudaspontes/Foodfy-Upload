@@ -12,7 +12,7 @@ module.exports = {
         return res.render('admin/index', { recipes }); 
         
     },
-
+    
     async create(req, res) {
 
         let results = await Recipes.chefsSelectOptions()
@@ -33,18 +33,20 @@ module.exports = {
         if (req.files.lenght == 0)
             return res.send('Please, send at least one image!')
         
-        const filesPromise = req.files.map(file => Files.create({...file}))
-        
-        const results = await Recipe_files.create(req.body)
+        const results = await Recipes.create(req.body)
         const recipeId = results.rows[0].id
 
+        const filesPromise = req.files.map(file => Files.create ({...file}))
+        
         const filesResults = await Promise.all(filesPromise)
         const recipeFiles = filesResults.map((file) => {
             const fileId = file.rows[0].id
             Recipe_files.create(recipeId, fileId)
         })
+        
         await Promise.all(recipeFiles)
-            return res.redirect(`/admin/recipes/${recipeId}`)
+
+            return res.render("admin/recipes/index")
 
     },
     
