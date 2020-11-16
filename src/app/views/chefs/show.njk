@@ -1,7 +1,7 @@
 {% extends 'layout-admin.njk' %}
 
 {% block head %}
-  <title>{{ chefs.name }}</title>
+  <title>{{ chef.name }}</title>
 {% endblock head %}
 
 {% block content %}
@@ -12,7 +12,7 @@
     <a href="{{chef.id}}/edit" class="button">Edit chef</a>
   </div>
   <div class="banner-chefs__img">
-    <img src="{{ chef.image }}" alt="{{ chef.name }} image">
+    <img src="{{ chef.file }}" alt="{{ chef.name }} image">
     <h1>{{chef.name}}</h1>
     <p>{{chef.total_recipes}} recipes</p>
   </div>

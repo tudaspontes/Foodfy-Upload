@@ -31,8 +31,8 @@ routes.get('/chefs/create', chefs.create);
 routes.get('/chefs/:id', chefs.show);
 routes.get('/chefs/:id/edit', chefs.edit);
 
-routes.post('/chefs', chefs.post);
-routes.put('/chefs', chefs.put);
+routes.post('/chefs', multer.array("photos", 5), chefs.post);
+routes.put('/chefs', multer.array("photos", 5), chefs.put);
 routes.delete('/chefs', chefs.delete);
 // routes.get("/admin/recipes", recipes.index); // Mostrar a lista de receitas
 // routes.get("/admin/recipes/create", recipes.create); // Mostrar formulário de nova receita

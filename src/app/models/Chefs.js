@@ -11,16 +11,16 @@ module.exports = {
         const query = `
         INSERT INTO chefs (
             name,
-            file_id,
-            created_at
+            created_at,
+            file_id
         ) VALUES ($1, $2, $3)
         RETURNING id   
     `
 
     const values = [
         data.name,
-        data.file_id,
         date(Date.now()).iso,
+        data.file_id
 
     ]
 
@@ -47,13 +47,13 @@ module.exports = {
         const query = `
         UPDATE chefs SET
             name=($1),
-            image=($2)
+            file_id=($2)
         WHERE id = $3
         `
 
         const values = [
             data.name,
-            data.image,
+            data.file_id,
             data.id            
         ]
 
