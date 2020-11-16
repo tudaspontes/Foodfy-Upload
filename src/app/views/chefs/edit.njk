@@ -5,27 +5,26 @@
 <form class="card container" method="POST" action="/chefs?_method=PUT" enctype="multipart/form-data">
     <section>
         <div class="wrapper_edit">
-        <div class="create_recipe">
-        <h3>Edit chef</h3>
-        </div>
+            <div class="create_recipe">
+                <h3>Edit chef</h3>
+            </div>
 
-        <div class="create_recipe__buttons">
+            <div class="create_recipe__buttons">
        
-        </form>
-        <button type="submit" id="save">Save Chef</button>
-
+            <button type="submit" id="save">Save Chef</button>
+        
+</form>
+        
         <form id="form-delete" action="/chefs?_method=DELETE" method="POST">
             <input type="hidden" name="id" value={{chef.id}}>
             <button type="submit" id="delete">Delete</button>
-           
         </form>
-        </div>      
-        </div>
-        {% include 'chefs/fields.njk'%}
+            </div>      
+            </div>
 
-        <input type="hidden" name="id" value={{chef.id}}>
+            {% include 'chefs/fields.njk'%}
 
-        
+            <input type="hidden" name="id" value={{chef.id}}>
 
     </section>
 

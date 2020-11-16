@@ -71,6 +71,6 @@ module.exports = {
         await Chefs.delete(req.body.id)
         return res.redirect('/chefs')
         
-    },
+    }
 }
 
